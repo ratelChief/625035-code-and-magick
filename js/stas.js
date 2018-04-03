@@ -9,7 +9,7 @@ var FONT_GAP = 16;
 var BAR_WIDTH = 40;
 var barHeight = -150;
 var PLAYER_BAR_COLOR = 'rgba(255, 0, 0, 1)';
-var otherPlayersColor = 'rgba(0, 0, 255, ' + (Math.random() * (1.1 - 0.1) + 0.1) + ')';
+var otherPlayersColor = 'rgba(0, 0, 255, ' + Math.random() + ')';
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -47,8 +47,10 @@ window.renderStatistics = function (ctx, names, times) {
 
   for (var i = 0; i < names.length; i++) {
     ctx.fillStyle = '#000';
+    ctx.fillText(Math.floor(times[i]), CLOUD_X + GAP + FONT_GAP + (GAP + BAR_WIDTH * 2) * i, CLOUD_HEIGHT - GAP - FONT_GAP - Math.floor((-barHeight * times[i]) / maxTime) - FONT_GAP);
     ctx.fillText(names[i], CLOUD_X + GAP + FONT_GAP + (GAP + BAR_WIDTH * 2) * i, CLOUD_HEIGHT - GAP - GAP);
-    if (i === 0) {
+
+    if (names[i] === 'Вы') {
       ctx.fillStyle = PLAYER_BAR_COLOR;
       ctx.fillRect(CLOUD_X + GAP + FONT_GAP + (GAP + BAR_WIDTH * 2) * i, CLOUD_HEIGHT - GAP - FONT_GAP, BAR_WIDTH, Math.floor((barHeight * times[i]) / maxTime));
     } else {
