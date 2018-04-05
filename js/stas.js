@@ -9,8 +9,8 @@ var FONT_GAP = 16;
 var BAR_WIDTH = 40;
 var MAX_BAR_HEIGHT = 150;
 var PLAYER_BAR_COLOR = 'rgba(255, 0, 0, 1)';
-var labelX = CLOUD_X + GAP;
-var labelY = CLOUD_Y + GAP + FONT_GAP;
+var LABEL_X = CLOUD_X + GAP;
+var LABEL_Y = CLOUD_Y + GAP + FONT_GAP;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -58,8 +58,8 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.textBaseline = 'hanging';
   var maxTime = getMaxElement(times);
   ctx.fillStyle = '#000';
-  ctx.fillText('Ура вы победили!', labelX, labelY);
-  ctx.fillText('Список результатов:', labelX, labelY + FONT_GAP);
+  ctx.fillText('Ура вы победили!', LABEL_X, LABEL_Y);
+  ctx.fillText('Список результатов:', LABEL_X, LABEL_Y + FONT_GAP);
   for (var i = 0; i < names.length; i++) {
     drawHistogramBar(ctx, times[i], names[i], maxTime, i);
     drawTime(ctx, times[i], maxTime, i);
