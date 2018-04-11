@@ -11,62 +11,43 @@ userDialog.classList.remove('hidden');
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-var wizards = [
-  {
-    name: '',
-    coatColor: '',
-    eyesColor: ''
-  },
-  {
-    name: '',
-    coatColor: '',
-    eyesColor: ''
-  },
-  {
-    name: '',
-    coatColor: '',
-    eyesColor: ''
-  },
-  {
-    name: '',
-    coatColor: '',
-    eyesColor: ''
-  }
-];
+var wizards = [];
 
-var getRandomValue = function (limit) {
-  var result = limit[Math.floor(Math.random() * (limit.length))];
+var getRandomValue = function (arr) {
+  var result = arr[Math.floor(Math.random() * (arr.length))];
 
   return result;
 };
 
-var setWizardName = function (wizardNames, wizardLastnames) {
+var getWizardName = function (wizardNames, wizardLastnames) {
   var name = getRandomValue(wizardNames) + ' ' + getRandomValue(wizardLastnames);
 
   return name;
 };
 
-var setCoatColor = function (wizardCoatColors) {
+var getCoatColor = function (wizardCoatColors) {
   var coatColor = getRandomValue(wizardCoatColors);
 
   return coatColor;
 };
 
-var setEyesColor = function (wizardEyesColor) {
+var getEyesColor = function (wizardEyesColor) {
   var eyeColor = getRandomValue(wizardEyesColor);
 
   return eyeColor;
 };
 
-var initWizards = function () {
-  for (var i = 0; i < wizards.length; i++) {
-    wizards[i].name = setWizardName(WIZARD_NAMES, WIZARD_LASTNAMES);
-    wizards[i].coatColor = setCoatColor(WIZARD_COATCOLORS);
-    wizards[i].eyesColor = setEyesColor(WIZARD_EYESCOLOR);
+var initWizards = function (wizardsCount) {
+  for (var i = 0; i < wizardsCount; i++) {
+    var wizard = {};
+    wizard.name = getWizardName(WIZARD_NAMES, WIZARD_LASTNAMES);
+    wizard.coatColor = getCoatColor(WIZARD_COATCOLORS);
+    wizard.eyesColor = getEyesColor(WIZARD_EYESCOLOR);
+    wizards.push(wizard);
   }
 };
 
-initWizards();
+initWizards(4);
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
