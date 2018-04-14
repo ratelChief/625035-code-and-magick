@@ -3,7 +3,8 @@
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_LASTNAMES = ['да Марья', 'Верона', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var WIZARD_COATCOLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var WIZARD_EYESCOLOR = ['black', 'red', 'blue', 'yellow', 'green'];
+var WIZARD_EYESCOLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
@@ -15,6 +16,7 @@ var userNameInput = setup.querySelector('.setup-user-name');
 var inputIsFocused = false;
 var setupWizard = document.querySelector('.setup-wizard');
 var setupWizardEyes = setupWizard.querySelector('.wizard-eyes');
+var setupFireballColor = document.querySelector('.setup-fireball-wrap');
 
 var onPopupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
@@ -30,7 +32,13 @@ setupWizardEyes.addEventListener('click', changeWizardEyesColor);
 
 var changeWizardEyesColor = function () {
   var newWizardEyesColor = setupWizard.querySelector('.wizard-eyes');
-  newWizardEyesColor.style.fill = getEyesColor(WIZARD_EYESCOLOR);
+  newWizardEyesColor.style.fill = getEyesColor(WIZARD_EYESCOLORS);
+};
+
+setupFireballColor.addEventListener('click', changeFireballColor);
+
+var changeFireballColor = function () {
+  setupFireballColor.style.backgroundColor = getFireballColor(FIREBALL_COLORS);
 };
 
 var openPopup = function () {
@@ -112,12 +120,18 @@ var getEyesColor = function (wizardEyesColor) {
   return eyeColor;
 };
 
+var getFireballColor = function (fireballColors) {
+  var fireballColor = getRandomValue(fireballColors);
+
+  return fireballColor;
+};
+
 var initWizards = function (wizardsCount) {
   for (var i = 0; i < wizardsCount; i++) {
     var wizard = {};
     wizard.name = getWizardName(WIZARD_NAMES, WIZARD_LASTNAMES);
     wizard.coatColor = getCoatColor(WIZARD_COATCOLORS);
-    wizard.eyesColor = getEyesColor(WIZARD_EYESCOLOR);
+    wizard.eyesColor = getEyesColor(WIZARD_EYESCOLORS);
     wizards.push(wizard);
   }
 };
