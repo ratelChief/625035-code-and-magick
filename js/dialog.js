@@ -25,13 +25,8 @@
   };
 
   var initialStateOfPopup = function () {
-    var setupState = setup.getBoundingClientRect();
-    var initialCoords = {
-      x: setupState.left,
-      y: setupState.top
-    };
-    setup.dataset.xCoord = initialCoords.x;
-    setup.dataset.yCoord = initialCoords.y;
+    setup.dataset.xCoord = setup.offsetLeft;
+    setup.dataset.yCoord = setup.offsetTop;
     console.log(initialCoords);
     console.log(setup.dataset.yCoord);
     console.log(setup.dataset.xCoord);
