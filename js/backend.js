@@ -1,48 +1,42 @@
 'use strict';
 
-window.backend = (function () {
-  var URL_DOWNLOAD = 'https://js.dump.academy/code-and-magick/data';
-  var URL_UPLOAD = 'https://js.dump.academy/code-and-magick';
+(function () {
+  var TIMEOUT = 10000;
+  var STATUS_OK = 200;
 
-  var xhr = new XMLHttpRequest();
-  xhr.responseType = 'json';
+  var prepareXhr = function (onLoad, onError) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
 
-  return {
-    load: function (onLoad, onError) {
+    xhr.addEventListener('load', function () {
+      if (xhr.status === STATUS_OK) {
+        onLoad(xhr.response, xhr.status);
+      } else {
+        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      }
+    });
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка соединения');
+    });
+    xhr.addEventListener('timeout', function () {
+      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+    });
 
-      xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
-          console.log(xhr.response);
-        } else {
-          onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-        }
-      });
+    xhr.timeout = TIMEOUT;
+    return xhr;
+  };
 
-      xhr.addEventListener('error', function () {
-        onError('Произошла ошибка соединения');
-      });
-
-      xhr.addEventListener('timeout', function () {
-        onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-      });
-      xhr. addEventListener('timeout', function () {
-        onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-      });
-
-      xhr.open('GET', URL_DOWNLOAD);
+  window.backend = {
+    load: function (settings) {
+      var xhr = prepareXhr(settings.onLoad, settings.onError);
+      xhr.open('GET', settings.url);
       xhr.send();
     },
-    save: function (data, onLoad, onError) {
-      xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
-          onLoad(xhr.response);
-        } else {
-          onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-        }
-      });
 
-      xhr.open('POST', URL_UPLOAD);
-      xhr.send(data);
+    save: function (settings) {
+      var xhr = prepareXhr(settings.onLoad, settings.onError);
+      xhr.open('POST', settings.url);
+      xhr.send(settings.data);
     }
   };
 })();
