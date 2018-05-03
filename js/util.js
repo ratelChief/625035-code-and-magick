@@ -38,6 +38,10 @@ window.util = (function () {
       var fireballColor = window.util.getRandomValue(fireballColors);
 
       return fireballColor;
+    },
+    removeElement: function (elem) {
+      elem.parentElement.removeChild(elem);
     }
+
   };
 })();

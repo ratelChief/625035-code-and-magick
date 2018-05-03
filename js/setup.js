@@ -1,30 +1,12 @@
 'use strict';
 (function () {
-//  var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-//  var WIZARD_LASTNAMES = ['да Марья', 'Верона', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-//  var WIZARD_COATCOLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-//  var WIZARD_EYESCOLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-
-  //  var wizards = [];
-  //
-  //  var initWizards = function (wizardsCount) {
-  //    for (var i = 0; i < wizardsCount; i++) {
-  //      var wizard = {};
-  //      wizard.name = window.util.getWizardName(WIZARD_NAMES, WIZARD_LASTNAMES);
-  //      wizard.coatColor = window.util.getCoatColor(WIZARD_COATCOLORS);
-  //      wizard.eyesColor = window.util.getEyesColor(WIZARD_EYESCOLORS);
-  //      wizards.push(wizard);
-  //    }
-  //  };
-  //
-  //  initWizards(4);
 
   var URL_DOWNLOAD = 'https://js.dump.academy/code-and-magick/data';
   var URL_UPLOAD = 'https://js.dump.academy/code-and-magick';
   var WIZARDS_COUNT = 4;
   var STATUS_OK = 200;
   var SUCCESS_MESSAGE = 'Данные успешно отправлены';
-  var MESSAGE_TIMEOUT = 5000;
+  var MESSAGE_TIMEOUT = 3000;
 
 
   var setup = document.querySelector('.setup');
@@ -64,14 +46,14 @@
     var prevError = document.querySelector('#error');
 
     if (prevError) {
-      window.Util.removeElement(prevError);
+      window.util.removeElement(prevError);
     }
 
     document.body.insertAdjacentElement('afterbegin', node);
 
     if (showTime) {
       var timeout = setTimeout(function () {
-        window.Util.removeElement(node);
+        window.util.removeElement(node);
         clearTimeout(timeout);
       }, showTime);
     }
